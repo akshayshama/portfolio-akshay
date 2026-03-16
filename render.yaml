@@ -1,16 +1,15 @@
-services:
-  - type: web
-    name: bankflow-db
+databases:
+  - name: bankflow
     plan: free
-    postgres:
-      - name: bankflow
-        plan: free
+    region: oregon
 
+services:
   - type: web
     name: bankflow-server
     plan: free
-    buildCommand: npm run build
-    startCommand: npm start
+    region: oregon
+    buildCommand: cd server && npm install && npm run build
+    startCommand: cd server && npm start
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -20,12 +19,15 @@ services:
         value: bankflow-secret-key-2024
       - key: PORT
         value: 3001
+    repo: https://github.com/akshayshama/bankflow.git
 
   - type: web
     name: bankflow-client
     plan: free
-    buildCommand: npm run build
-    startCommand: npm run preview
+    region: oregon
+    buildCommand: cd client && npm install && npm run build
+    startCommand: cd client && npm run preview
     envVars:
       - key: VITE_API_URL
         value: https://bankflow-server.onrender.com
+    repo: https://github.com/akshayshama/bankflow.git
