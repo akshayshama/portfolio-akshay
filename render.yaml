@@ -9,8 +9,8 @@ services:
     plan: free
     region: oregon
     runtime: node
-    buildCommand: cd server && npm install && npm run build
-    startCommand: cd server && npm start
+    buildCommand: cd server && npm install && npx prisma generate && npm run build
+    startCommand: cd server && npm run db:push && npm start
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -28,7 +28,7 @@ services:
     region: oregon
     runtime: node
     buildCommand: cd client && npm install && npm run build
-    startCommand: cd client && npm run preview
+    startCommand: cd client && npm run preview -- --host
     envVars:
       - key: VITE_API_URL
         value: https://bankflow-server.onrender.com
