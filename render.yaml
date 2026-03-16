@@ -28,7 +28,7 @@ services:
     region: oregon
     runtime: node
     buildCommand: cd client && npm install && npm run build
-    startCommand: cd client && npm run preview -- --host
+    startCommand: cd client && npm run preview
     envVars:
       - key: VITE_API_URL
         value: https://bankflow-server.onrender.com
