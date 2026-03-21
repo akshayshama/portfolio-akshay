@@ -16,6 +16,7 @@
     --text: #e8e8f0;
     --muted: #6b6b80;
     --card: #12121a;
+    --success: #00ff88;
   }
 
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -369,16 +370,21 @@
   .contact-link-value { font-size: 12px; color: var(--muted); }
   .contact-arrow { opacity: 0.3; font-size: 18px; }
 
+  /* Agent Styles */
   .agent-btn {
     position: fixed; bottom: 24px; right: 24px;
-    width: 60px; height: 60px;
-    background: var(--accent); border-radius: 50%;
+    width: 64px; height: 64px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 50%;
     border: none; cursor: pointer; z-index: 1000;
     display: flex; align-items: center; justify-content: center;
     box-shadow: 0 8px 32px rgba(0,212,255,0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: all 0.3s ease;
   }
-  .agent-btn:hover { transform: scale(1.1); box-shadow: 0 12px 40px rgba(0,212,255,0.4); }
+  .agent-btn:hover { 
+    transform: scale(1.1); 
+    box-shadow: 0 12px 40px rgba(0,212,255,0.5);
+  }
   .agent-btn svg { width: 28px; height: 28px; stroke: #0a0a0f; fill: none; stroke-width: 2; }
   .agent-btn .pulse {
     position: absolute; width: 100%; height: 100%;
@@ -387,69 +393,123 @@
   }
   @keyframes agentPulse {
     0% { transform: scale(1); opacity: 1; }
-    100% { transform: scale(1.6); opacity: 0; }
+    100% { transform: scale(1.5); opacity: 0; }
   }
+  .agent-badge {
+    position: absolute; top: -4px; right: -4px;
+    width: 20px; height: 20px;
+    background: var(--success);
+    border-radius: 50%;
+    border: 3px solid var(--bg);
+    animation: blink 1s ease-in-out infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
   .agent-chat {
     position: fixed; bottom: 100px; right: 24px;
-    width: 380px; max-height: 520px;
+    width: 400px; height: 550px;
     background: var(--card); border: 1px solid var(--border);
     border-radius: 20px; z-index: 999;
     display: flex; flex-direction: column; overflow: hidden;
-    box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
     opacity: 0; transform: translateY(20px) scale(0.95);
-    pointer-events: none; transition: all 0.3s;
+    pointer-events: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .agent-chat.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
+  
   .agent-header {
-    background: var(--surface); padding: 20px 24px;
-    border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px;
+    background: linear-gradient(135deg, var(--surface), var(--card));
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border); 
+    display: flex; align-items: center; gap: 12px;
   }
   .agent-avatar {
-    width: 44px; height: 44px;
-    background: rgba(0,212,255,0.1); border: 2px solid rgba(0,212,255,0.3);
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(0,212,255,0.05));
+    border: 2px solid rgba(0,212,255,0.3);
+    border-radius: 50%; 
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
   }
-  .agent-avatar svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 2; }
+  .agent-avatar svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 2; }
+  .agent-info { flex: 1; }
   .agent-info h3 { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; }
-  .agent-info span { font-size: 11px; color: var(--muted); }
+  .agent-info span { font-size: 11px; color: var(--success); }
   .agent-close {
-    margin-left: auto; width: 32px; height: 32px;
-    background: transparent; border: 1px solid var(--border); border-radius: 8px;
+    width: 36px; height: 36px;
+    background: transparent; border: 1px solid var(--border); border-radius: 10px;
     cursor: pointer; display: flex; align-items: center; justify-content: center;
     transition: all 0.2s;
   }
   .agent-close:hover { border-color: var(--accent); background: rgba(0,212,255,0.1); }
-  .agent-close svg { width: 16px; height: 16px; stroke: var(--text); fill: none; stroke-width: 2; }
+  .agent-close svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 2; }
+
   .agent-messages {
-    flex: 1; padding: 20px 24px; overflow-y: auto;
-    display: flex; flex-direction: column; gap: 12px;
+    flex: 1; padding: 20px 24px; 
+    overflow-y: auto;
+    display: flex; flex-direction: column; gap: 16px;
+    scroll-behavior: smooth;
   }
+  .agent-messages::-webkit-scrollbar { width: 4px; }
+  .agent-messages::-webkit-scrollbar-track { background: transparent; }
+  .agent-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
   .msg { max-width: 85%; padding: 14px 18px; border-radius: 16px; font-size: 13px; line-height: 1.6; animation: msgSlide 0.3s ease; }
   @keyframes msgSlide { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  .msg.bot { background: var(--surface); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
-  .msg.user { background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.2); border-bottom-right-radius: 4px; align-self: flex-end; }
-  .msg-time { font-size: 10px; color: var(--muted); margin-top: 6px; opacity: 0.7; }
+  .msg.bot { background: var(--surface); border: 1px solid var(--border); border-bottom-left-radius: 4px; white-space: pre-line; }
+  .msg.user { background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(0,212,255,0.05)); border: 1px solid rgba(0,212,255,0.2); border-bottom-right-radius: 4px; align-self: flex-end; }
+  .msg-time { font-size: 10px; color: var(--muted); margin-top: 8px; opacity: 0.7; }
+
+  .quick-replies {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
+  }
+  .quick-reply {
+    padding: 8px 14px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; font-size: 12px; color: var(--accent);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .quick-reply:hover { background: rgba(0,212,255,0.1); border-color: var(--accent); }
+
   .typing-indicator { display: flex; gap: 4px; padding: 16px; }
   .typing-indicator span { width: 8px; height: 8px; background: var(--muted); border-radius: 50%; animation: typing 1.4s infinite ease-in-out; }
   .typing-indicator span:nth-child(1) { animation-delay: 0s; }
   .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
   .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
   @keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-6px); opacity: 1; } }
-  .agent-input { padding: 16px 20px; border-top: 1px solid var(--border); display: flex; gap: 12px; background: var(--surface); }
+
+  .agent-input { 
+    padding: 16px 20px; 
+    border-top: 1px solid var(--border); 
+    display: flex; gap: 12px; 
+    background: var(--surface);
+  }
   .agent-input input {
-    flex: 1; background: var(--card); border: 1px solid var(--border);
-    color: var(--text); padding: 14px 18px; border-radius: 12px;
-    font-family: 'DM Mono', monospace; font-size: 13px; outline: none;
-    transition: border-color 0.2s;
+    flex: 1; 
+    background: var(--card); 
+    border: 1px solid var(--border);
+    color: var(--text); 
+    padding: 14px 18px; 
+    border-radius: 12px;
+    font-family: 'DM Mono', monospace; 
+    font-size: 13px; 
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .agent-input input:focus { border-color: rgba(0,212,255,0.4); }
+  .agent-input input:focus { 
+    border-color: rgba(0,212,255,0.4); 
+    box-shadow: 0 0 0 3px rgba(0,212,255,0.1); 
+  }
+  .agent-input input::placeholder { color: var(--muted); }
   .agent-input button {
-    width: 48px; height: 48px; background: var(--accent); border: none;
-    border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: transform 0.2s;
+    width: 48px; height: 48px; 
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none; border-radius: 12px; 
+    cursor: pointer; 
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
   }
-  .agent-input button:hover { transform: scale(1.05); }
+  .agent-input button:hover { transform: scale(1.05); box-shadow: 0 4px 16px rgba(0,212,255,0.3); }
   .agent-input button svg { width: 20px; height: 20px; stroke: #0a0a0f; fill: none; stroke-width: 2; }
 
   .landing {
@@ -486,7 +546,8 @@
     .hackathon-card { grid-template-columns: 1fr; gap: 32px; }
     .hackathon-details { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 32px; }
     .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-    .agent-chat { width: calc(100% - 48px); right: 24px; left: 24px; }
+    .agent-chat { width: calc(100% - 48px); right: 24px; left: 24px; height: 70vh; bottom: 100px; }
+    .agent-btn { bottom: 24px; right: 24px; }
   }
 </style>
 </head>
@@ -722,150 +783,221 @@
   </div>
 </section>
 
-<button class="agent-btn" id="agentBtn"><span class="pulse"></span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></button>
+<button class="agent-btn" id="agentBtn">
+  <span class="pulse"></span>
+  <span class="agent-badge"></span>
+  <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+</button>
 
 <div class="agent-chat" id="agentChat">
   <div class="agent-header">
-    <div class="agent-avatar"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm-1-11v6h2v-6h-2zm0-4v2h2V5h-2z"/></svg></div>
-    <div class="agent-info"><h3>AI Assistant</h3><span>Ask me anything about Akshay</span></div>
-    <button class="agent-close" id="agentClose"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <div class="agent-avatar">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+    </div>
+    <div class="agent-info">
+      <h3>AI Agent</h3>
+      <span>● Online</span>
+    </div>
+    <button class="agent-close" id="agentClose">
+      <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
   </div>
   <div class="agent-messages" id="agentMessages">
-    <div class="msg bot">Hello! I'm Akshay's AI assistant. I can help you learn more about his skills, projects, and experience. What would you like to know?</div>
+    <div class="msg bot">
+Hello! I'm Akshay's AI Agent. I have complete knowledge of his portfolio and can answer any question about him.
+      
+<button class="quick-reply" onclick="askQuestion('What are his skills?')">Skills</button>
+<button class="quick-reply" onclick="askQuestion('Tell me about his projects')">Projects</button>
+<button class="quick-reply" onclick="askQuestion('How can I contact him?')">Contact</button></div>
   </div>
   <div class="agent-input">
-    <input type="text" id="agentInput" placeholder="Type your message...">
-    <button id="agentSend"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+    <input type="text" id="agentInput" placeholder="Ask me anything about Akshay...">
+    <button id="agentSend">
+      <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+    </button>
   </div>
 </div>
 
 <script>
+// Portfolio Knowledge Base
 const portfolioData = {
-  name: "Akshay H",
-  description: "ML Engineer & AI Developer specializing in building intelligent systems with Python, machine learning, and data science.",
-  skills: [
-    { category: "Languages", skills: ["Python", "SQL", "HTML / CSS", "JavaScript"] },
-    { category: "Machine Learning", skills: ["K-Means Clustering", "Linear Regression", "XGBoost", "scikit-learn", "Model Evaluation"] },
-    { category: "Data Science", skills: ["Pandas", "NumPy", "Matplotlib", "Seaborn", "EDA", "Feature Engineering"] },
-    { category: "Databases & Tools", skills: ["MongoDB", "MySQL", "Git & GitHub", "Google Colab", "VS Code"] }
-  ],
+  personal: {
+    name: "Akshay H",
+    title: "ML Engineer & AI Developer",
+    location: "Bangalore, India"
+  },
+  skills: {
+    languages: ["Python", "SQL", "HTML/CSS", "JavaScript"],
+    ml: ["K-Means Clustering", "Linear Regression", "XGBoost", "scikit-learn"],
+    dataScience: ["Pandas", "NumPy", "Matplotlib", "Seaborn", "EDA"],
+    tools: ["MongoDB", "MySQL", "Git", "Google Colab", "VS Code"]
+  },
   projects: [
-    { title: "Customer Segmentation using ML", description: "K-Means clustering model to identify customer groups", tech: ["Python", "K-Means", "scikit-learn"] },
-    { title: "Medical Insurance Cost Prediction", description: "XGBoost regression model for healthcare cost prediction", tech: ["Python", "XGBoost", "scikit-learn"] }
+    {
+      title: "Customer Segmentation using ML",
+      type: "Unsupervised Learning",
+      tech: ["Python", "K-Means", "scikit-learn"]
+    },
+    {
+      title: "Medical Insurance Cost Prediction",
+      type: "Regression",
+      tech: ["Python", "XGBoost", "Linear Regression"]
+    }
   ],
-  education: [
-    { degree: "B.E. in Computer Science (AI & ML)", school: "Sai Vidya Institute of Technology, Bangalore" },
-    { degree: "PCMB Pre-University", school: "Arvind PU College, Kunigal" }
-  ],
-  certification: { title: "Applied Artificial Intelligence", issuer: "IBM SkillsBuild", year: "Dec 2025" },
-  contact: { email: "akshayhonnappa04@gmail.com", phone: "+91 9110695748", github: "github.com/akshayshama/ml_projects" }
+  hackathon: {
+    name: "AIGNITION 2025",
+    achievement: "Finalist",
+    project: "AI-based Code Plagiarism Detector"
+  },
+  education: {
+    current: "B.E. in Computer Science (AI & ML) at SVIT Bangalore",
+    previous: "PCMB Pre-University at Arvind PU College"
+  },
+  certification: {
+    title: "Applied Artificial Intelligence",
+    issuer: "IBM SkillsBuild",
+    date: "December 2025"
+  },
+  contact: {
+    email: "akshayhonnappa04@gmail.com",
+    phone: "+91 9110695748",
+    github: "github.com/akshayshama/ml_projects"
+  }
 };
 
-function getResponse(message) {
-  const q = message.toLowerCase();
-  
-  if (q.includes('name')) return `His name is <strong>${portfolioData.name}</strong>.`;
-  if (q.includes('about') || q.includes('description') || q.includes('intro')) return portfolioData.description;
-  
-  if (q.includes('skill') || q.includes('know') || q.includes('tech')) {
-    return portfolioData.skills.map(s => `<strong>${s.category}:</strong> ${s.skills.join(', ')}`).join('<br>');
+// AI Agent Brain
+class AIAgent {
+  process(message) {
+    const msg = message.toLowerCase();
+    
+    if (/skill|tech|know/.test(msg)) {
+      return `Akshay's technical skills:
+
+Languages: ${portfolioData.skills.languages.join(', ')}
+ML: ${portfolioData.skills.ml.join(', ')}
+Data Science: ${portfolioData.skills.dataScience.join(', ')}
+Tools: ${portfolioData.skills.tools.join(', ')}`;
+    }
+    
+    if (/project|build|work/.test(msg)) {
+      return `Akshay's projects:
+
+1. ${portfolioData.projects[0].title}
+   Type: ${portfolioData.projects[0].type}
+   Tech: ${portfolioData.projects[0].tech.join(', ')}
+
+2. ${portfolioData.projects[1].title}
+   Type: ${portfolioData.projects[1].type}
+   Tech: ${portfolioData.projects[1].tech.join(', ')}
+
+He also built an AI-based Code Plagiarism Detector at AIGNITION 2025 Hackathon.`;
+    }
+    
+    if (/contact|email|phone|hire/.test(msg)) {
+      return `Contact Akshay:
+Email: ${portfolioData.contact.email}
+Phone: ${portfolioData.contact.phone}
+GitHub: ${portfolioData.contact.github}`;
+    }
+    
+    if (/education|college|school|degree/.test(msg)) {
+      return `Education:
+Current: ${portfolioData.education.current}
+Previous: ${portfolioData.education.previous}`;
+    }
+    
+    if (/certif|ibm|certificate/.test(msg)) {
+      return `${portfolioData.certification.title}
+Issuer: ${portfolioData.certification.issuer}
+Completed: ${portfolioData.certification.date}`;
+    }
+    
+    if (/hackathon|aignition|finalist/.test(msg)) {
+      return `${portfolioData.hackathon.name}
+Achievement: ${portfolioData.hackathon.achievement}
+Project: ${portfolioData.hackathon.project}`;
+    }
+    
+    if (/hi|hello|hey/.test(msg)) {
+      return "Hello! I'm Akshay's AI Agent. Ask me about his skills, projects, education, certifications, or contact info!";
+    }
+    
+    return "I can help with questions about Akshay's skills, projects, education, certifications, or contact info. What would you like to know?";
   }
-  
-  if (q.includes('project')) {
-    return portfolioData.projects.map(p => `<strong>${p.title}</strong><br>${p.description}<br>Tech: ${p.tech.join(', ')}`).join('<br><br>');
-  }
-  
-  if (q.includes('education') || q.includes('degree') || q.includes('college')) {
-    return portfolioData.education.map(e => `<strong>${e.degree}</strong><br>${e.school}`).join('<br><br>');
-  }
-  
-  if (q.includes('certification') || q.includes('certificate') || q.includes('ibm')) {
-    return `<strong>${portfolioData.certification.title}</strong><br>${portfolioData.certification.issuer} - ${portfolioData.certification.year}`;
-  }
-  
-  if (q.includes('contact') || q.includes('email') || q.includes('phone') || q.includes('hire')) {
-    return `Email: ${portfolioData.contact.email}<br>Phone: ${portfolioData.contact.phone}<br>GitHub: ${portfolioData.contact.github}`;
-  }
-  
-  if (q.includes('experience') || q.includes('role')) {
-    return "ML Engineer & AI Developer with expertise in Python, machine learning, and data science.";
-  }
-  
-  if (q.includes('hackathon') || q.includes('aignition')) {
-    return "Finalist at AIGNITION 2025 - built an AI-based Code Plagiarism Detector in 48 hours.";
-  }
-  
-  if (q.includes('hi') || q.includes('hello') || q.includes('hey')) {
-    return "Hello! I can answer questions about Akshay's skills, projects, education, certifications, or contact info. What would you like to know?";
-  }
-  
-  return "I can help with questions about his skills, projects, education, certifications, or contact info. Try asking specifically!";
 }
+
+const agent = new AIAgent();
+
+// UI
+const agentBtn = document.getElementById('agentBtn');
+const agentChat = document.getElementById('agentChat');
+const agentClose = document.getElementById('agentClose');
+const agentInput = document.getElementById('agentInput');
+const agentSend = document.getElementById('agentSend');
+const agentMessages = document.getElementById('agentMessages');
+
+agentBtn.addEventListener('click', () => agentChat.classList.toggle('open'));
+agentClose.addEventListener('click', () => agentChat.classList.remove('open'));
+
+window.askQuestion = (q) => { agentInput.value = q; sendMessage(); };
 
 function addMessage(text, type) {
   const msg = document.createElement('div');
   msg.className = `msg ${type}`;
-  const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+  const time = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
   msg.innerHTML = text + `<div class="msg-time">${time}</div>`;
-  document.getElementById('agentMessages').appendChild(msg);
-  document.getElementById('agentMessages').scrollTop = document.getElementById('agentMessages').scrollHeight;
+  agentMessages.appendChild(msg);
+  agentMessages.scrollTop = agentMessages.scrollHeight;
 }
 
 function showTyping() {
-  const typing = document.createElement('div');
-  typing.id = 'typing';
-  typing.className = 'typing-indicator';
-  typing.innerHTML = '<span></span><span></span><span></span>';
-  document.getElementById('agentMessages').appendChild(typing);
-  document.getElementById('agentMessages').scrollTop = document.getElementById('agentMessages').scrollHeight;
+  const t = document.createElement('div');
+  t.id = 'typing';
+  t.className = 'typing-indicator';
+  t.innerHTML = '<span></span><span></span><span></span>';
+  agentMessages.appendChild(t);
 }
 
 function hideTyping() {
-  const typing = document.getElementById('typing');
-  if (typing) typing.remove();
+  const t = document.getElementById('typing');
+  if (t) t.remove();
 }
 
-document.getElementById('agentBtn').addEventListener('click', () => document.getElementById('agentChat').classList.add('open'));
-document.getElementById('agentClose').addEventListener('click', () => document.getElementById('agentChat').classList.remove('open'));
-
-document.getElementById('agentSend').addEventListener('click', () => {
-  const text = document.getElementById('agentInput').value.trim();
+function sendMessage() {
+  const text = agentInput.value.trim();
   if (!text) return;
   addMessage(text, 'user');
-  document.getElementById('agentInput').value = '';
+  agentInput.value = '';
   showTyping();
   setTimeout(() => {
     hideTyping();
-    addMessage(getResponse(text), 'bot');
-  }, 500);
-});
-
-document.getElementById('agentInput').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    document.getElementById('agentSend').click();
-  }
-});
-
-const particlesContainer = document.getElementById('particles');
-for (let i = 0; i < 20; i++) {
-  const particle = document.createElement('div');
-  particle.className = 'particle';
-  particle.style.left = Math.random() * 100 + '%';
-  particle.style.top = Math.random() * 100 + '%';
-  particle.style.animationDelay = Math.random() * 10 + 's';
-  particle.style.animationDuration = (10 + Math.random() * 10) + 's';
-  particlesContainer.appendChild(particle);
+    addMessage(agent.process(text), 'bot');
+  }, 600);
 }
 
+agentSend.addEventListener('click', sendMessage);
+agentInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') sendMessage();
+});
+
+// Landing
+const particles = document.getElementById('particles');
+for (let i = 0; i < 20; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.style.left = Math.random() * 100 + '%';
+  p.style.top = Math.random() * 100 + '%';
+  p.style.animationDelay = Math.random() * 10 + 's';
+  particles.appendChild(p);
+}
 setTimeout(() => document.getElementById('landing').classList.add('hidden'), 2500);
 
+// Nav
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-links a');
 window.addEventListener('scroll', () => {
-  const scrollTop = window.scrollY;
   let cur = '';
-  sections.forEach(s => { if (scrollTop >= s.offsetTop - 100) cur = s.id; });
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
   navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#'+cur ? 'var(--accent)' : ''; });
 }, { passive: true });
 </script>
