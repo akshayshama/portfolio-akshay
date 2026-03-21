@@ -6,8 +6,6 @@
 <title>Akshay H — ML Engineer & AI Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
   :root {
     --bg: #0a0a0f;
@@ -29,108 +27,6 @@
     font-size: 14px;
     line-height: 1.7;
     overflow-x: hidden;
-  }
-
-  .landing {
-    position: fixed;
-    inset: 0;
-    background: var(--bg);
-    z-index: 10000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
-  }
-  .landing.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-  .landing-content {
-    text-align: center;
-    z-index: 2;
-  }
-  .landing-logo {
-    font-family: 'Syne', sans-serif;
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--text);
-    margin-bottom: 40px;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease 0.2s forwards;
-  }
-  .landing-logo span { color: var(--accent); }
-  .landing-name {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(48px, 10vw, 96px);
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -3px;
-    margin-bottom: 20px;
-  }
-  .name-line {
-    display: block;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease forwards;
-  }
-  .name-line:nth-child(1) { animation-delay: 0.4s; }
-  .name-line:nth-child(2) { animation-delay: 0.6s; }
-  .name-line.accent {
-    color: transparent;
-    -webkit-text-stroke: 2px var(--accent);
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-  }
-  .landing-role {
-    font-size: 14px;
-    color: var(--muted);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease 0.8s forwards;
-  }
-  .landing-loader {
-    width: 200px;
-    height: 2px;
-    background: var(--border);
-    margin: 40px auto 0;
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .loader-bar {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    width: 0%;
-    animation: loadBar 2s ease forwards;
-    box-shadow: 0 0 10px var(--accent);
-  }
-  @keyframes loadBar {
-    0% { width: 0%; }
-    100% { width: 100%; }
-  }
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .landing-particles {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-  }
-  .particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: var(--accent);
-    border-radius: 50%;
-    opacity: 0.3;
-    animation: float 15s infinite ease-in-out;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0) translateX(0); }
-    25% { transform: translateY(-100px) translateX(50px); }
-    50% { transform: translateY(-50px) translateX(-50px); }
-    75% { transform: translateY(-150px) translateX(25px); }
   }
 
   body::before {
@@ -212,6 +108,7 @@
     color: var(--accent); margin-bottom: 32px;
     border: 1px solid rgba(0,212,255,0.25);
     padding: 6px 14px; border-radius: 100px;
+    animation: fadeIn 0.6s ease 0.2s both;
   }
   .hero-tag::before {
     content: '';
@@ -224,7 +121,7 @@
     font-size: clamp(52px,7vw,96px);
     font-weight: 800; line-height: 0.9; letter-spacing: -3px;
     margin-bottom: 24px;
-    animation: fadeIn 0.8s ease 0.1s both;
+    animation: fadeIn 0.8s ease 0.3s both;
   }
   .hero-name .accent-line {
     color: transparent;
@@ -248,6 +145,7 @@
   }
   .hero-cta {
     display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeIn 0.8s ease 0.5s both;
   }
   .btn-primary {
     display: inline-flex; align-items: center; gap: 10px;
@@ -257,23 +155,9 @@
     font-size: 13px; letter-spacing: 0.05em;
     text-decoration: none; text-transform: uppercase;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: none;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .btn-primary::before {
-    content: '';
-    position: absolute; top: 50%; left: 50%;
-    width: 0; height: 0;
-    background: rgba(255,255,255,0.3);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
+    border: none; cursor: pointer;
   }
   .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,212,255,0.4); }
-  .btn-primary:hover::before { width: 300px; height: 300px; }
-  .btn-primary:active { transform: translateY(-1px); }
   .btn-secondary {
     display: inline-flex; align-items: center; gap: 10px;
     border: 1px solid var(--border); color: var(--text);
@@ -287,6 +171,7 @@
   .hero-stats {
     position: relative; z-index: 2;
     display: flex; flex-direction: column; gap: 24px;
+    animation: fadeIn 0.8s ease 0.6s both;
   }
   .stat-card {
     border: 1px solid var(--border);
@@ -302,20 +187,11 @@
     background: linear-gradient(90deg, transparent, var(--accent), transparent);
     opacity: 0; transition: opacity 0.3s;
   }
-  .stat-card::after {
-    content: '';
-    position: absolute; top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0,212,255,0.05), transparent);
-    transition: left 0.6s ease;
-  }
   .stat-card:hover { border-color: rgba(0,212,255,0.2); transform: translateX(4px); }
   .stat-card:hover::before { opacity: 1; }
-  .stat-card:hover::after { left: 100%; }
-  .stat-value { transition: transform 0.3s ease; }
-  .stat-card:hover .stat-value { transform: scale(1.05); }
   .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 8px; }
-  .stat-value { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--accent); }
+  .stat-value { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--accent); transition: transform 0.3s ease; }
+  .stat-card:hover .stat-value { transform: scale(1.05); }
   .stat-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
 
   section { padding: 100px 48px; }
@@ -337,11 +213,11 @@
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2px;
   }
-    .skill-group {
+  .skill-group {
     background: var(--card); padding: 32px;
     transition: background 0.3s;
   }
-  .skill-group:hover { background: #1a1a16; }
+  .skill-group:hover { background: #1a1a24; }
   .skill-group-title {
     font-family: 'Syne', sans-serif;
     font-size: 11px; font-weight: 700;
@@ -390,8 +266,6 @@
   .project-card:hover::before { opacity: 1; }
   .project-title { transition: color 0.3s ease; }
   .project-card:hover .project-title { color: var(--accent); }
-  .stack-item { transition: all 0.2s ease; }
-  .stack-item:hover { background: rgba(0,212,255,0.1); color: var(--accent); transform: scale(1.05); }
   .project-num {
     font-size: 72px; font-weight: 800;
     font-family: 'Syne', sans-serif;
@@ -403,11 +277,8 @@
   .project-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 16px; }
   .project-desc { font-size: 13px; color: var(--muted); line-height: 1.8; margin-bottom: 28px; flex: 1; }
   .project-stack { display: flex; flex-wrap: wrap; gap: 8px; }
-  .stack-item {
-    font-size: 11px; padding: 4px 10px;
-    background: rgba(255,255,255,0.04);
-    border-radius: 2px; color: var(--muted);
-  }
+  .stack-item { font-size: 11px; padding: 4px 10px; background: rgba(255,255,255,0.04); border-radius: 2px; color: var(--muted); transition: all 0.2s ease; }
+  .stack-item:hover { background: rgba(0,212,255,0.1); color: var(--accent); transform: scale(1.05); }
 
   .hackathon-card {
     border: 1px solid rgba(0,212,255,0.2);
@@ -416,12 +287,6 @@
     display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
     align-items: center; position: relative; overflow: hidden;
     margin-top: 24px;
-  }
-  .hackathon-card::before {
-    content: 'FINALIST';
-    position: absolute; top: -20px; right: -10px;
-    font-family: 'Syne', sans-serif; font-size: 80px; font-weight: 800;
-    color: rgba(200,241,53,0.04); letter-spacing: -3px; pointer-events: none;
   }
   .hackathon-badge {
     display: inline-flex; align-items: center; gap: 8px;
@@ -443,19 +308,8 @@
     padding: 36px 40px; border-radius: 8px;
     display: flex; align-items: center; gap: 32px;
     max-width: 700px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-  }
-  .cert-card::before {
-    content: '';
-    position: absolute; top: -50%; left: -50%;
-    width: 200%; height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(0,212,255,0.1), transparent);
-    transform: rotate(45deg) translateX(-100%);
-    transition: transform 0.8s ease;
   }
   .cert-card:hover { border-color: rgba(0,212,255,0.2); transform: translateX(8px); }
-  .cert-card:hover::before { transform: rotate(45deg) translateX(100%); }
   .cert-icon {
     width: 56px; height: 56px; flex-shrink: 0;
     background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2);
@@ -503,21 +357,8 @@
     padding: 20px 24px; border: 1px solid var(--border);
     border-radius: 6px; text-decoration: none; color: var(--text);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-size: 14px;
-    position: relative; overflow: hidden;
-  }
-  .contact-link::before {
-    content: '';
-    position: absolute; top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0,212,255,0.1), transparent);
-    transition: left 0.5s ease;
   }
   .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateX(8px); }
-  .contact-link:hover::before { left: 100%; }
-  .contact-link-icon { transition: transform 0.3s ease; }
-  .contact-link:hover .contact-link-icon { transform: scale(1.1); }
-  .contact-arrow { transition: transform 0.3s ease; }
-  .contact-link:hover .contact-arrow { transform: translateX(4px); }
   .contact-link-icon {
     width: 36px; height: 36px; background: rgba(255,255,255,0.04);
     border-radius: 4px; display: flex; align-items: center; justify-content: center;
@@ -527,142 +368,67 @@
   .contact-link-label { flex: 1; }
   .contact-link-value { font-size: 12px; color: var(--muted); }
   .contact-arrow { opacity: 0.3; font-size: 18px; }
-  .contact-form-side { display: flex; flex-direction: column; gap: 16px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .form-input {
-    background: var(--surface); border: 1px solid var(--border);
-    color: var(--text); padding: 14px 18px;
-    font-family: 'DM Mono', monospace; font-size: 13px;
-    border-radius: 4px; width: 100%; outline: none;
-    transition: border-color 0.2s;
-  }
-  .form-input:focus { border-color: rgba(0,212,255,0.4); box-shadow: 0 0 0 3px rgba(0,212,255,0.1); }
-  .form-input::placeholder { color: var(--muted); }
-  textarea.form-input { resize: vertical; min-height: 120px; }
 
   .agent-btn {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    width: 60px;
-    height: 60px;
-    background: var(--accent);
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 32px rgba(200,241,53,0.3);
+    position: fixed; bottom: 24px; right: 24px;
+    width: 60px; height: 60px;
+    background: var(--accent); border-radius: 50%;
+    border: none; cursor: pointer; z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 32px rgba(0,212,255,0.3);
     transition: transform 0.3s, box-shadow 0.3s;
   }
-  .agent-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 12px 40px rgba(0,212,255,0.4);
-  }
+  .agent-btn:hover { transform: scale(1.1); box-shadow: 0 12px 40px rgba(0,212,255,0.4); }
   .agent-btn svg { width: 28px; height: 28px; stroke: #0a0a0f; fill: none; stroke-width: 2; }
   .agent-btn .pulse {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 2px solid var(--accent);
-    border-radius: 50%;
-    animation: pulse 2s ease-out infinite;
+    position: absolute; width: 100%; height: 100%;
+    border: 2px solid var(--accent); border-radius: 50%;
+    animation: agentPulse 2s ease-out infinite;
   }
-  @keyframes pulse {
+  @keyframes agentPulse {
     0% { transform: scale(1); opacity: 1; }
     100% { transform: scale(1.6); opacity: 0; }
   }
 
   .agent-chat {
-    position: fixed;
-    bottom: 100px;
-    right: 24px;
-    width: 380px;
-    max-height: 520px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    z-index: 999;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(200,241,53,0.1);
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    pointer-events: none;
-    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: fixed; bottom: 100px; right: 24px;
+    width: 380px; max-height: 520px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; z-index: 999;
+    display: flex; flex-direction: column; overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+    opacity: 0; transform: translateY(20px) scale(0.95);
+    pointer-events: none; transition: all 0.3s;
   }
-  .agent-chat.open {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    pointer-events: all;
-  }
+  .agent-chat.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
   .agent-header {
-    background: linear-gradient(135deg, var(--surface), var(--card));
-    padding: 20px 24px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    background: var(--surface); padding: 20px 24px;
+    border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px;
   }
   .agent-avatar {
-    width: 44px;
-    height: 44px;
-    background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(0,212,255,0.05));
-    border: 2px solid rgba(0,212,255,0.3);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  .agent-avatar::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 10px;
-    height: 10px;
-    background: #00ff88;
-    border-radius: 50%;
-    border: 2px solid var(--card);
+    width: 44px; height: 44px;
+    background: rgba(0,212,255,0.1); border: 2px solid rgba(0,212,255,0.3);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
   }
   .agent-avatar svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 2; }
   .agent-info h3 { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; }
   .agent-info span { font-size: 11px; color: var(--muted); }
   .agent-close {
-    margin-left: auto;
-    width: 32px;
-    height: 32px;
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-left: auto; width: 32px; height: 32px;
+    background: transparent; border: 1px solid var(--border); border-radius: 8px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
     transition: all 0.2s;
   }
   .agent-close:hover { border-color: var(--accent); background: rgba(0,212,255,0.1); }
   .agent-close svg { width: 16px; height: 16px; stroke: var(--text); fill: none; stroke-width: 2; }
   .agent-messages {
-    flex: 1;
-    padding: 20px 24px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    scroll-behavior: smooth;
+    flex: 1; padding: 20px 24px; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 12px;
   }
-  .agent-messages::-webkit-scrollbar { width: 4px; }
-  .agent-messages::-webkit-scrollbar-track { background: transparent; }
-  .agent-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
   .msg { max-width: 85%; padding: 14px 18px; border-radius: 16px; font-size: 13px; line-height: 1.6; animation: msgSlide 0.3s ease; }
   @keyframes msgSlide { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   .msg.bot { background: var(--surface); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
-  .msg.user { background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(0,212,255,0.05)); border: 1px solid rgba(0,212,255,0.2); border-bottom-right-radius: 4px; align-self: flex-end; }
+  .msg.user { background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.2); border-bottom-right-radius: 4px; align-self: flex-end; }
   .msg-time { font-size: 10px; color: var(--muted); margin-top: 6px; opacity: 0.7; }
   .typing-indicator { display: flex; gap: 4px; padding: 16px; }
   .typing-indicator span { width: 8px; height: 8px; background: var(--muted); border-radius: 50%; animation: typing 1.4s infinite ease-in-out; }
@@ -670,42 +436,44 @@
   .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
   .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
   @keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-6px); opacity: 1; } }
-  .agent-input {
-    padding: 16px 20px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    gap: 12px;
-    background: var(--surface);
-  }
+  .agent-input { padding: 16px 20px; border-top: 1px solid var(--border); display: flex; gap: 12px; background: var(--surface); }
   .agent-input input {
-    flex: 1;
-    background: var(--card);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 14px 18px;
-    border-radius: 12px;
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    flex: 1; background: var(--card); border: 1px solid var(--border);
+    color: var(--text); padding: 14px 18px; border-radius: 12px;
+    font-family: 'DM Mono', monospace; font-size: 13px; outline: none;
+    transition: border-color 0.2s;
   }
-  .agent-input input:focus { border-color: rgba(200,241,53,0.4); box-shadow: 0 0 0 3px rgba(200,241,53,0.1); }
-  .agent-input input::placeholder { color: var(--muted); }
+  .agent-input input:focus { border-color: rgba(0,212,255,0.4); }
   .agent-input button {
-    width: 48px;
-    height: 48px;
-    background: var(--accent);
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
+    width: 48px; height: 48px; background: var(--accent); border: none;
+    border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s;
   }
-  .agent-input button:hover { transform: scale(1.05); box-shadow: 0 4px 16px rgba(0,212,255,0.3); }
-  .agent-input button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-  .agent-input button svg { width: 20px; height: 20px; stroke: #0a0a08; fill: none; stroke-width: 2; }
+  .agent-input button:hover { transform: scale(1.05); }
+  .agent-input button svg { width: 20px; height: 20px; stroke: #0a0a0f; fill: none; stroke-width: 2; }
+
+  .landing {
+    position: fixed; inset: 0; background: var(--bg); z-index: 10000;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+  .landing.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .landing-content { text-align: center; z-index: 2; }
+  .landing-logo { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: var(--text); margin-bottom: 40px; animation: fadeInUp 0.8s ease 0.2s forwards; }
+  .landing-logo span { color: var(--accent); }
+  .landing-name { font-family: 'Syne', sans-serif; font-size: clamp(48px, 10vw, 96px); font-weight: 800; line-height: 1; letter-spacing: -3px; margin-bottom: 20px; }
+  .name-line { display: block; opacity: 0; animation: fadeInUp 0.8s ease forwards; }
+  .name-line:nth-child(1) { animation-delay: 0.4s; }
+  .name-line:nth-child(2) { animation-delay: 0.6s; }
+  .name-line.accent { color: transparent; -webkit-text-stroke: 2px var(--accent); font-family: 'Instrument Serif', serif; font-style: italic; }
+  .landing-role { font-size: 14px; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; opacity: 0; animation: fadeInUp 0.8s ease 0.8s forwards; }
+  .landing-loader { width: 200px; height: 2px; background: var(--border); margin: 40px auto 0; border-radius: 2px; overflow: hidden; }
+  .loader-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); width: 0%; animation: loadBar 2s ease forwards; }
+  @keyframes loadBar { 0% { width: 0%; } 100% { width: 100%; } }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .landing-particles { position: absolute; inset: 0; overflow: hidden; }
+  .particle { position: absolute; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; opacity: 0.3; animation: float 15s infinite ease-in-out; }
+  @keyframes float { 0%, 100% { transform: translateY(0) translateX(0); } 25% { transform: translateY(-100px) translateX(50px); } 50% { transform: translateY(-50px) translateX(-50px); } 75% { transform: translateY(-150px) translateX(25px); } }
 
   @media (max-width: 900px) {
     nav { padding: 16px 24px; }
@@ -718,7 +486,6 @@
     .hackathon-card { grid-template-columns: 1fr; gap: 32px; }
     .hackathon-details { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 32px; }
     .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-    .form-row { grid-template-columns: 1fr; }
     .agent-chat { width: calc(100% - 48px); right: 24px; left: 24px; }
   }
 </style>
@@ -733,9 +500,7 @@
       <span class="name-line accent">H</span>
     </div>
     <div class="landing-role">ML Engineer & AI Developer</div>
-    <div class="landing-loader">
-      <div class="loader-bar"></div>
-    </div>
+    <div class="landing-loader"><div class="loader-bar"></div></div>
   </div>
   <div class="landing-particles" id="particles"></div>
 </div>
@@ -756,17 +521,10 @@
   <div class="hero-orb"></div>
   <div class="hero-content">
     <div class="hero-tag">Available for opportunities</div>
-    <h1 class="hero-name">
-      Akshay<br>
-      <span class="accent-line">H</span>
-    </h1>
-    <p class="hero-desc">
-      ML Engineer &amp; AI Developer specializing in building intelligent systems with Python, 
-      machine learning, and data science. Currently pursuing B.E. in 
-      Computer Science (AI&amp;ML) at SVIT Bangalore.
-    </p>
+    <h1 class="hero-name">Akshay<br><span class="accent-line">H</span></h1>
+    <p class="hero-desc">ML Engineer & AI Developer specializing in building intelligent systems with Python, machine learning, and data science. Currently pursuing B.E. in Computer Science (AI & ML) at SVIT Bangalore.</p>
     <div class="hero-cta">
-      <a href="#projects" class="btn-primary">View Projects →</a>
+      <a href="#projects" class="btn-primary">View Projects</a>
       <a href="#contact" class="btn-secondary">Get in Touch</a>
     </div>
   </div>
@@ -774,7 +532,7 @@
     <div class="stat-card">
       <div class="stat-label">Current Degree</div>
       <div class="stat-value">B.E.</div>
-      <div class="stat-sub">Computer Science (AI &amp; ML) · SVIT</div>
+      <div class="stat-sub">Computer Science (AI & ML) · SVIT</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Hackathon Achievement</div>
@@ -827,11 +585,11 @@
       </div>
     </div>
     <div class="skill-group">
-      <div class="skill-group-title">Databases &amp; Tools</div>
+      <div class="skill-group-title">Databases & Tools</div>
       <div class="skill-tags">
         <span class="skill-tag">MongoDB</span>
         <span class="skill-tag">MySQL</span>
-        <span class="skill-tag">Git &amp; GitHub</span>
+        <span class="skill-tag">Git & GitHub</span>
         <span class="skill-tag">Google Colab</span>
         <span class="skill-tag">VS Code</span>
       </div>
@@ -850,12 +608,7 @@
       <div class="project-num">01</div>
       <div class="project-type">Unsupervised Learning</div>
       <h3 class="project-title">Customer Segmentation using ML</h3>
-      <p class="project-desc">
-        Developed a K-Means clustering model to identify distinct customer groups 
-        from demographic and spending behavior data. Applied the Elbow Method to 
-        optimize cluster count and generated visual cluster profiles to support 
-        targeted marketing strategies.
-      </p>
+      <p class="project-desc">Developed a K-Means clustering model to identify distinct customer groups from demographic and spending behavior data. Applied the Elbow Method to optimize cluster count and generated visual cluster profiles to support targeted marketing strategies.</p>
       <div class="project-stack">
         <span class="stack-item">Python</span>
         <span class="stack-item">K-Means</span>
@@ -869,12 +622,7 @@
       <div class="project-num">02</div>
       <div class="project-type">Regression · Healthcare</div>
       <h3 class="project-title">Medical Insurance Cost Prediction</h3>
-      <p class="project-desc">
-        Built a regression model predicting medical insurance costs from demographic 
-        and health factors. Benchmarked Linear Regression vs XGBoost using R², MAE, 
-        and RMSE metrics. Delivered accurate cost predictions for healthcare 
-        and insurance applications.
-      </p>
+      <p class="project-desc">Built a regression model predicting medical insurance costs from demographic and health factors. Benchmarked Linear Regression vs XGBoost using R², MAE, and RMSE metrics. Delivered accurate cost predictions for healthcare and insurance applications.</p>
       <div class="project-stack">
         <span class="stack-item">Python</span>
         <span class="stack-item">XGBoost</span>
@@ -889,11 +637,7 @@
     <div>
       <div class="hackathon-badge">Hackathon Finalist</div>
       <h3 class="hackathon-title">AIGNITION Hackathon</h3>
-      <p class="hackathon-meta">
-        Selected for the Final Round of AIGNITION, organized by the Department of 
-        CSE (AI &amp; ML) at SVIT. Competed in a 48-hour intensive sprint 
-        demonstrating innovation, teamwork, and problem-solving under pressure.
-      </p>
+      <p class="hackathon-meta">Selected for the Final Round of AIGNITION, organized by the Department of CSE (AI & ML) at SVIT. Competed in a 48-hour intensive sprint demonstrating innovation, teamwork, and problem-solving under pressure.</p>
     </div>
     <div class="hackathon-details">
       <div class="hackathon-detail-item">
@@ -919,9 +663,7 @@
     <div class="section-line"></div>
   </div>
   <div class="cert-card">
-    <div class="cert-icon">
-      <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-    </div>
+    <div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
     <div>
       <div class="cert-title">Applied Artificial Intelligence</div>
       <div class="cert-meta">IBM SkillsBuild · Learn, Build and Create an AI Agent (2025–26)<br>Your Learning Builder — Completed: Dec 2025</div>
@@ -939,7 +681,7 @@
   <div class="education-timeline">
     <div class="edu-item">
       <div class="edu-date">Dec 2022 – Sep 2026</div>
-      <div class="edu-degree">B.E. in Computer Science (AI &amp; ML)</div>
+      <div class="edu-degree">B.E. in Computer Science (AI & ML)</div>
       <div class="edu-school">Sai Vidya Institute of Technology, Rajanukunte, Bangalore</div>
     </div>
     <div class="edu-item">
@@ -962,317 +704,170 @@
       <div class="contact-links">
         <a href="mailto:akshayhonnappa04@gmail.com" class="contact-link">
           <div class="contact-link-icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></div>
-          <div class="contact-link-label">
-            <div>Email</div>
-            <div class="contact-link-value">akshayhonnappa04@gmail.com</div>
-          </div>
+          <div class="contact-link-label"><div>Email</div><div class="contact-link-value">akshayhonnappa04@gmail.com</div></div>
           <span class="contact-arrow">→</span>
         </a>
         <a href="tel:9110695748" class="contact-link">
           <div class="contact-link-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
-          <div class="contact-link-label">
-            <div>Phone</div>
-            <div class="contact-link-value">+91 9110695748</div>
-          </div>
+          <div class="contact-link-label"><div>Phone</div><div class="contact-link-value">+91 9110695748</div></div>
           <span class="contact-arrow">→</span>
         </a>
-        <a href="https://github.com/akshayshama/ml_projects" target="_blank" rel="noopener" class="contact-link">
+        <a href="https://github.com/akshayshama/ml_projects" target="_blank" class="contact-link">
           <div class="contact-link-icon"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg></div>
-          <div class="contact-link-label">
-            <div>GitHub</div>
-            <div class="contact-link-value">github.com/akshayshama/ml_projects</div>
-          </div>
+          <div class="contact-link-label"><div>GitHub</div><div class="contact-link-value">github.com/akshayshama/ml_projects</div></div>
           <span class="contact-arrow">→</span>
         </a>
       </div>
-    </div>
-    <div class="contact-form-side">
-      <div class="form-row">
-        <input type="text" class="form-input" placeholder="Your Name">
-        <input type="email" class="form-input" placeholder="Email">
-      </div>
-      <input type="text" class="form-input" placeholder="Subject">
-      <textarea class="form-input" placeholder="Your message..."></textarea>
-      <button class="btn-primary" id="sendBtn" style="align-self:flex-start;">
-        <span id="sendBtnText">Send Message →</span>
-      </button>
     </div>
   </div>
 </section>
 
-<button class="agent-btn" id="agentBtn">
-  <span class="pulse"></span>
-  <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-</button>
+<button class="agent-btn" id="agentBtn"><span class="pulse"></span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></button>
 
 <div class="agent-chat" id="agentChat">
   <div class="agent-header">
-    <div class="agent-avatar">
-      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm-1-11v6h2v-6h-2zm0-4v2h2V5h-2z"/></svg>
-    </div>
-    <div class="agent-info">
-      <h3>AI Assistant</h3>
-      <span>Ask me anything about Akshay</span>
-    </div>
-    <button class="agent-close" id="agentClose">
-      <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
-    </button>
+    <div class="agent-avatar"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm-1-11v6h2v-6h-2zm0-4v2h2V5h-2z"/></svg></div>
+    <div class="agent-info"><h3>AI Assistant</h3><span>Ask me anything about Akshay</span></div>
+    <button class="agent-close" id="agentClose"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
   </div>
   <div class="agent-messages" id="agentMessages">
-    <div class="msg bot">
-      Hello! I'm Akshay's AI assistant. I can help you learn more about his skills, projects, and experience. What would you like to know?
-    </div>
+    <div class="msg bot">Hello! I'm Akshay's AI assistant. I can help you learn more about his skills, projects, and experience. What would you like to know?</div>
   </div>
   <div class="agent-input">
     <input type="text" id="agentInput" placeholder="Type your message...">
-    <button id="agentSend">
-      <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-    </button>
+    <button id="agentSend"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
   </div>
 </div>
 
 <script>
-  gsap.registerPlugin(ScrollTrigger);
+const portfolioData = {
+  name: "Akshay H",
+  description: "ML Engineer & AI Developer specializing in building intelligent systems with Python, machine learning, and data science.",
+  skills: [
+    { category: "Languages", skills: ["Python", "SQL", "HTML / CSS", "JavaScript"] },
+    { category: "Machine Learning", skills: ["K-Means Clustering", "Linear Regression", "XGBoost", "scikit-learn", "Model Evaluation"] },
+    { category: "Data Science", skills: ["Pandas", "NumPy", "Matplotlib", "Seaborn", "EDA", "Feature Engineering"] },
+    { category: "Databases & Tools", skills: ["MongoDB", "MySQL", "Git & GitHub", "Google Colab", "VS Code"] }
+  ],
+  projects: [
+    { title: "Customer Segmentation using ML", description: "K-Means clustering model to identify customer groups", tech: ["Python", "K-Means", "scikit-learn"] },
+    { title: "Medical Insurance Cost Prediction", description: "XGBoost regression model for healthcare cost prediction", tech: ["Python", "XGBoost", "scikit-learn"] }
+  ],
+  education: [
+    { degree: "B.E. in Computer Science (AI & ML)", school: "Sai Vidya Institute of Technology, Bangalore" },
+    { degree: "PCMB Pre-University", school: "Arvind PU College, Kunigal" }
+  ],
+  certification: { title: "Applied Artificial Intelligence", issuer: "IBM SkillsBuild", year: "Dec 2025" },
+  contact: { email: "akshayhonnappa04@gmail.com", phone: "+91 9110695748", github: "github.com/akshayshama/ml_projects" }
+};
 
-  const tl = gsap.timeline();
+function getResponse(message) {
+  const q = message.toLowerCase();
   
-  tl.from('.hero-tag', { y: 30, opacity: 0, duration: 0.6, ease: 'power3.out' })
-    .from('.hero-name', { y: 30, opacity: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4')
-    .from('.hero-desc', { y: 30, opacity: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4')
-    .from('.hero-cta', { y: 30, opacity: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4')
-    .from('.stat-card', { y: 30, opacity: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out' }, '-=0.3');
-
-  gsap.to('.hero-orb', {
-    scale: 1.1,
-    duration: 4,
-    ease: 'sine.inOut',
-    repeat: -1,
-    yoyo: true
-  });
-
-  gsap.to('.hero-bg-grid', {
-    backgroundPosition: '80px 80px',
-    duration: 20,
-    ease: 'none',
-    repeat: -1
-  });
-
-  gsap.utils.toArray('.section-header').forEach(header => {
-    gsap.from(header.children, {
-      scrollTrigger: { trigger: header, start: 'top 80%' },
-      y: 30,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: 'power3.out'
-    });
-  });
-
-  gsap.utils.toArray('.skill-group').forEach((group, i) => {
-    gsap.from(group, {
-      scrollTrigger: { trigger: group, start: 'top 85%' },
-      y: 40,
-      duration: 0.6,
-      delay: i * 0.1,
-      ease: 'power3.out'
-    });
-  });
-
-  gsap.utils.toArray('.project-card').forEach((card, i) => {
-    gsap.from(card, {
-      scrollTrigger: { trigger: card, start: 'top 85%' },
-      y: 50,
-      duration: 0.8,
-      delay: i * 0.15,
-      ease: 'power3.out'
-    });
-  });
-
-  gsap.from('.hackathon-card', {
-    scrollTrigger: { trigger: '.hackathon-card', start: 'top 85%' },
-    y: 60,
-    duration: 1,
-    ease: 'power3.out'
-  });
-
-  gsap.from('.cert-card', {
-    scrollTrigger: { trigger: '.cert-card', start: 'top 85%' },
-    x: -60,
-    duration: 0.8,
-    ease: 'power3.out'
-  });
-
-  gsap.utils.toArray('.edu-item').forEach((item, i) => {
-    gsap.from(item, {
-      scrollTrigger: { trigger: item, start: 'top 85%' },
-      x: -40,
-      duration: 0.6,
-      delay: i * 0.2,
-      ease: 'power3.out'
-    });
-  });
-
-  gsap.utils.toArray('.contact-link').forEach((link, i) => {
-    gsap.from(link, {
-      scrollTrigger: { trigger: link, start: 'top 90%' },
-      x: -30,
-      duration: 0.5,
-      delay: i * 0.1,
-      ease: 'power3.out'
-    });
-  });
-
-  const agentBtn = document.getElementById('agentBtn');
-  const agentChat = document.getElementById('agentChat');
-  const agentClose = document.getElementById('agentClose');
-  const agentInput = document.getElementById('agentInput');
-  const agentSend = document.getElementById('agentSend');
-  const agentMessages = document.getElementById('agentMessages');
-
-  agentBtn.addEventListener('click', () => {
-    agentChat.classList.toggle('open');
-  });
-
-  agentClose.addEventListener('click', () => {
-    agentChat.classList.remove('open');
-  });
-
-  async function addMessage(text, type) {
-    const msg = document.createElement('div');
-    msg.className = `msg ${type}`;
-    const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-    msg.innerHTML = text + `<div class="msg-time">${time}</div>`;
-    agentMessages.appendChild(msg);
-    agentMessages.scrollTo({ top: agentMessages.scrollHeight, behavior: 'smooth' });
+  if (q.includes('name')) return `His name is <strong>${portfolioData.name}</strong>.`;
+  if (q.includes('about') || q.includes('description') || q.includes('intro')) return portfolioData.description;
+  
+  if (q.includes('skill') || q.includes('know') || q.includes('tech')) {
+    return portfolioData.skills.map(s => `<strong>${s.category}:</strong> ${s.skills.join(', ')}`).join('<br>');
   }
-
-  function showTyping() {
-    const typing = document.createElement('div');
-    typing.id = 'typing';
-    typing.className = 'typing-indicator';
-    typing.innerHTML = '<span></span><span></span><span></span>';
-    agentMessages.appendChild(typing);
-    agentMessages.scrollTo({ top: agentMessages.scrollHeight, behavior: 'smooth' });
+  
+  if (q.includes('project')) {
+    return portfolioData.projects.map(p => `<strong>${p.title}</strong><br>${p.description}<br>Tech: ${p.tech.join(', ')}`).join('<br><br>');
   }
-
-  function hideTyping() {
-    const typing = document.getElementById('typing');
-    if (typing) typing.remove();
+  
+  if (q.includes('education') || q.includes('degree') || q.includes('college')) {
+    return portfolioData.education.map(e => `<strong>${e.degree}</strong><br>${e.school}`).join('<br><br>');
   }
-
-  let isSending = false;
-
-  async function sendMessage() {
-    const text = agentInput.value.trim();
-    if (!text || isSending) return;
-    
-    isSending = true;
-    agentSend.disabled = true;
-    agentInput.value = '';
-    
-    addMessage(text, 'user');
-    showTyping();
-    
-    try {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 10000);
-      
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text }),
-        signal: controller.signal
-      });
-      
-      clearTimeout(timeout);
-      const data = await response.json();
-      hideTyping();
-      addMessage(data.response, 'bot');
-    } catch (error) {
-      hideTyping();
-      addMessage('Sorry, something went wrong. Please try again.', 'bot');
-    }
-    
-    isSending = false;
-    agentSend.disabled = false;
-    agentInput.focus();
+  
+  if (q.includes('certification') || q.includes('certificate') || q.includes('ibm')) {
+    return `<strong>${portfolioData.certification.title}</strong><br>${portfolioData.certification.issuer} - ${portfolioData.certification.year}`;
   }
-
-  agentSend.addEventListener('click', sendMessage);
-  agentInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  });
-
-  document.getElementById('sendBtn').addEventListener('click', async function() {
-    const nameInput = document.querySelector('input[placeholder="Your Name"]');
-    const emailInput = document.querySelector('input[placeholder="Email"]');
-    const subjectInput = document.querySelector('input[placeholder="Subject"]');
-    const messageInput = document.querySelector('textarea');
-    
-    const btnText = document.getElementById('sendBtnText');
-    btnText.textContent = 'Sending...';
-    
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: nameInput.value,
-          email: emailInput.value,
-          subject: subjectInput.value,
-          message: messageInput.value
-        })
-      });
-      
-      if (response.ok) {
-        btnText.textContent = 'Message Sent';
-        this.style.background = '#4ade80';
-        nameInput.value = '';
-        emailInput.value = '';
-        subjectInput.value = '';
-        messageInput.value = '';
-      }
-    } catch (error) {
-      btnText.textContent = 'Error - Try Again';
-    }
-    
-    setTimeout(() => {
-      btnText.textContent = 'Send Message →';
-      this.style.background = '';
-    }, 2500);
-  });
-
-  const particlesContainer = document.getElementById('particles');
-  for (let i = 0; i < 20; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.top = Math.random() * 100 + '%';
-    particle.style.animationDelay = Math.random() * 10 + 's';
-    particle.style.animationDuration = (10 + Math.random() * 10) + 's';
-    particlesContainer.appendChild(particle);
+  
+  if (q.includes('contact') || q.includes('email') || q.includes('phone') || q.includes('hire')) {
+    return `Email: ${portfolioData.contact.email}<br>Phone: ${portfolioData.contact.phone}<br>GitHub: ${portfolioData.contact.github}`;
   }
+  
+  if (q.includes('experience') || q.includes('role')) {
+    return "ML Engineer & AI Developer with expertise in Python, machine learning, and data science.";
+  }
+  
+  if (q.includes('hackathon') || q.includes('aignition')) {
+    return "Finalist at AIGNITION 2025 - built an AI-based Code Plagiarism Detector in 48 hours.";
+  }
+  
+  if (q.includes('hi') || q.includes('hello') || q.includes('hey')) {
+    return "Hello! I can answer questions about Akshay's skills, projects, education, certifications, or contact info. What would you like to know?";
+  }
+  
+  return "I can help with questions about his skills, projects, education, certifications, or contact info. Try asking specifically!";
+}
 
+function addMessage(text, type) {
+  const msg = document.createElement('div');
+  msg.className = `msg ${type}`;
+  const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+  msg.innerHTML = text + `<div class="msg-time">${time}</div>`;
+  document.getElementById('agentMessages').appendChild(msg);
+  document.getElementById('agentMessages').scrollTop = document.getElementById('agentMessages').scrollHeight;
+}
+
+function showTyping() {
+  const typing = document.createElement('div');
+  typing.id = 'typing';
+  typing.className = 'typing-indicator';
+  typing.innerHTML = '<span></span><span></span><span></span>';
+  document.getElementById('agentMessages').appendChild(typing);
+  document.getElementById('agentMessages').scrollTop = document.getElementById('agentMessages').scrollHeight;
+}
+
+function hideTyping() {
+  const typing = document.getElementById('typing');
+  if (typing) typing.remove();
+}
+
+document.getElementById('agentBtn').addEventListener('click', () => document.getElementById('agentChat').classList.add('open'));
+document.getElementById('agentClose').addEventListener('click', () => document.getElementById('agentChat').classList.remove('open'));
+
+document.getElementById('agentSend').addEventListener('click', () => {
+  const text = document.getElementById('agentInput').value.trim();
+  if (!text) return;
+  addMessage(text, 'user');
+  document.getElementById('agentInput').value = '';
+  showTyping();
   setTimeout(() => {
-    document.getElementById('landing').classList.add('hidden');
-  }, 2500);
+    hideTyping();
+    addMessage(getResponse(text), 'bot');
+  }, 500);
+});
 
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  
-  let scrollTimeout;
-  window.addEventListener('scroll', () => {
-    if (scrollTimeout) return;
-    scrollTimeout = setTimeout(() => {
-      const scrollTop = window.scrollY;
-      let cur = '';
-      sections.forEach(s => { if (scrollTop >= s.offsetTop - 100) cur = s.id; });
-      navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#'+cur ? 'var(--accent)' : ''; });
-      scrollTimeout = null;
-    }, 50);
-  }, { passive: true });
+document.getElementById('agentInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    document.getElementById('agentSend').click();
+  }
+});
+
+const particlesContainer = document.getElementById('particles');
+for (let i = 0; i < 20; i++) {
+  const particle = document.createElement('div');
+  particle.className = 'particle';
+  particle.style.left = Math.random() * 100 + '%';
+  particle.style.top = Math.random() * 100 + '%';
+  particle.style.animationDelay = Math.random() * 10 + 's';
+  particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+  particlesContainer.appendChild(particle);
+}
+
+setTimeout(() => document.getElementById('landing').classList.add('hidden'), 2500);
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  let cur = '';
+  sections.forEach(s => { if (scrollTop >= s.offsetTop - 100) cur = s.id; });
+  navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#'+cur ? 'var(--accent)' : ''; });
+}, { passive: true });
 </script>
 </body>
 </html>
